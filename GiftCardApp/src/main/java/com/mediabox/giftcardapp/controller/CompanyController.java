@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by jeffe on 7/5/2017.
  */
 @Controller
-public class HomeController {
+public class CompanyController {
     @RequestMapping(value = "/")
     public String home() {
         return "header";
