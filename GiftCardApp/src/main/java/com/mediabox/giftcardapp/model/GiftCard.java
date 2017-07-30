@@ -10,36 +10,37 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name="giftcard", catalog = "giftcardapp")
+@Table(name="giftcard") //catalog = "giftcarddb")
 public class GiftCard {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String cardID;
+    @Column(name = "giftcard_id")
+    private String giftcardID;
 
-    @Column
+    @Column(name = "user_id")
     private String userID;
 
-    @Column
+    @Column(name = "company_id")
     private String companyID;
 
-    @Column
+    @Column(name = "card_number")
     private String cardNumber;
 
-    @Column
+    @Column(name = "card_pin")
     private String cardPin;
 
-    @Column
-    private double remainCredit;
+    @Column(name = "remaining_credit")
+    private double remainingCredit;
 
-    @Column
+    @Column(name = "is_enabled")
     private Boolean isEnabled;
 
-    @Column
+    @Column(name = "expiration_date")
     private Date expirationDate;
 
-    @Column
+    @Column(name = "create_timestamp")
     private Date createTimestamp;
 
-    @Column
+    @Column(name = "update_timestamp")
     private Date updateTimestamp;
 }

@@ -1,5 +1,6 @@
 package com.mediabox.giftcardapp.dao.impl;
 
+import com.mediabox.giftcardapp.dao.CompanyDao;
 import com.mediabox.giftcardapp.dao.UserDao;
 import com.mediabox.giftcardapp.model.User;
 import org.hibernate.SessionFactory;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * Created by jeffe on 7/6/2017.
  */
 @Repository
-public class CompanyDaoImpl implements UserDao {
+public class CompanyDaoImpl implements CompanyDao {
 
     @Autowired
     private SessionFactory session;

@@ -10,21 +10,22 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name="company", catalog = "giftcardapp")
+@Table(name="company")//, catalog = "giftcarddb")
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "company_id")
     private String companyID;
 
-    @Column
+    @Column(name = "company_name")
     private String companyName;
 
-    @Column
+    @Column(name = "is_public")
     private Boolean isPublic;
 
-    @Column
+    @Column(name = "create_timestamp")
     private Date createTimestamp;
 
-    @Column
+    @Column(name = "update_timestamp")
     private Date updateTimestamp;
 }

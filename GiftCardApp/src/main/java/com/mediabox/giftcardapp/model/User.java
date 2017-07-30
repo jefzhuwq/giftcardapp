@@ -11,31 +11,31 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name="user", catalog = "giftcardapp")
+@Table(name="user", catalog = "giftcarddb")
 public class User {
     @Id
-    @Column
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String userID;
 
-    @Column
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column
+    @Column(name = "password")
     private String password;
 
-    @Column
+    @Column(name = "is_enabled")
     private Boolean isEnabled;
 
-    @Column
+    @Column(name = "email")
     private String email;
 
-    @Column
+    @Column(name = "create_timestamp")
     private Date createTimestamp;
 
-    @Column
+    @Column(name = "update_timestamp")
     private Date updateTimestamp;
 }

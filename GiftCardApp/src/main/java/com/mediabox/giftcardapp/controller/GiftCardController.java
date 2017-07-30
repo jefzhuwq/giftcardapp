@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class GiftCardController {
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/gitcard")
     public String home() {
-        return "header";
+        return "home";
     }
 
 }

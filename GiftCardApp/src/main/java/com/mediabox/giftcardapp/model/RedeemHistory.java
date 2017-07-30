@@ -10,21 +10,22 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name="redeemhistory", catalog = "giftcardapp")
+@Table(name="redeemhistory")//, catalog = "giftcarddb")
 public class RedeemHistory {
     @Id
+    @Column(name = "history_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String historyID;
 
-    @Column
-    private String cardID;
+    @Column(name = "giftcard_id")
+    private String giftcardID;
 
-    @Column
-    private Boolean userID;
+    @Column(name = "user_id")
+    private String userID;
 
-    @Column
+    @Column(name = "create_timestamp")
     private Date createTimestamp;
 
-    @Column
+    @Column(name = "update_timestamp")
     private Date updateTimestamp;
 }
