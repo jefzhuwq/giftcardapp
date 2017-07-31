@@ -1,5 +1,6 @@
 package com.mediabox.giftcardapp.service;
 
+import com.mediabox.giftcardapp.model.Login;
 import com.mediabox.giftcardapp.model.User;
 
 /**
@@ -9,5 +10,5 @@ public interface UserService {
 
     void add(User user);
 
-
+    User validateUser(Login login);
 }
