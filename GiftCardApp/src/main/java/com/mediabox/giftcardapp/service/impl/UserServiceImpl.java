@@ -6,12 +6,15 @@ import com.mediabox.giftcardapp.service.UserService;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by jeffe on 7/6/2017.
  */
+@Component
 public class UserServiceImpl implements UserService {
     @Autowired
     private SessionFactory session;
@@ -22,6 +25,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User validateUser(Login login) {
         Query query = session.getCurrentSession().createQuery("from User where userName = :username and password = :password");
         query.setParameter("username", login.getUsername());

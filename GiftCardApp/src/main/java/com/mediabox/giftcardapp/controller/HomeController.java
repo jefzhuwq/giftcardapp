@@ -51,6 +51,7 @@ public class HomeController {
 //        String viewName = principal != null ? "homeSignedIn" : "homeNotSignedIn";
         String viewName = "register";
         ModelAndView mav = new ModelAndView(viewName);
+        mav.addObject("login", new Login());
 //        DateFormat dateFormat = DateFormat.getDateTimeInstance();
 //        mav.addObject("serverTime", dateFormat.format(new Date()));
         return mav;

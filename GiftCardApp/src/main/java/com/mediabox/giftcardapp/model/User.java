@@ -38,4 +38,7 @@ public class User {
 
     @Column(name = "update_timestamp")
     private Date updateTimestamp;
+
+    @Column(name = "user_name")
+    private String userName;
 }

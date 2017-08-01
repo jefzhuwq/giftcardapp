@@ -1,7 +1,6 @@
 package com.mediabox.giftcardapp.dao.impl;
 
 import com.mediabox.giftcardapp.dao.RedeemHistoryDao;
-import com.mediabox.giftcardapp.dao.UserDao;
 import com.mediabox.giftcardapp.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
