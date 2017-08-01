@@ -10,10 +10,10 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name="company")//, catalog = "giftcarddb")
+@Table(name="company", catalog = "giftcarddb")
 public class Company {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "company_id")
     private String companyID;
 

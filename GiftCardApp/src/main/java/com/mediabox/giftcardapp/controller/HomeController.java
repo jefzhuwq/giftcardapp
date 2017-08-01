@@ -1,6 +1,7 @@
 package com.mediabox.giftcardapp.controller;
 
 import com.mediabox.giftcardapp.model.Login;
+import com.mediabox.giftcardapp.model.Register;
 import com.mediabox.giftcardapp.model.User;
 import com.mediabox.giftcardapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by jeffe on 7/5/2017.
@@ -68,6 +70,21 @@ public class HomeController {
             mav = new ModelAndView("register");
             mav.addObject("message", "Username or Password is wrong!!");
         }
+        return mav;
+    }
+
+    @RequestMapping(value = "/registerProcess", method = RequestMethod.POST)
+    public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, Register register) {
+        ModelAndView mav = null;
+        User user = new User();
+        user.setUserID(UUID.randomUUID().toString());
+        user.setUserName(register.getUsername());
+        user.setPassword(register.getPassword());
+        user.setEmail(register.getEmail());
+        user.setCreateTimestamp(new Date());
+        user.setUpdateTimestamp(new Date());
+        user.setIsEnabled(true);
+        this.userService.add(user);
         return mav;
     }
 

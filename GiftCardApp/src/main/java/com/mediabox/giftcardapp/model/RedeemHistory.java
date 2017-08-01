@@ -14,7 +14,7 @@ import java.util.Date;
 public class RedeemHistory {
     @Id
     @Column(name = "history_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private String historyID;
 
     @Column(name = "giftcard_id")

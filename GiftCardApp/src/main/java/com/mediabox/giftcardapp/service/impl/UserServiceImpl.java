@@ -20,8 +20,9 @@ public class UserServiceImpl implements UserService {
     private SessionFactory session;
 
     @Override
+    @Transactional
     public void add(User user) {
-
+        session.getCurrentSession().save(user);
     }
 
     @Override
