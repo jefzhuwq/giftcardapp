@@ -9,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.util.Date;
@@ -21,6 +23,7 @@ import java.util.UUID;
 /**
  * Created by jeffe on 7/5/2017.
  */
+@SessionAttributes("user-entity")
 @Controller
 public class HomeController {
 
@@ -40,11 +43,9 @@ public class HomeController {
 
     @RequestMapping(value = "/login")
     public ModelAndView login(Principal principal) {
-//        String viewName = principal != null ? "homeSignedIn" : "homeNotSignedIn";
         String viewName = "login";
         ModelAndView mav = new ModelAndView(viewName);
-//        DateFormat dateFormat = DateFormat.getDateTimeInstance();
-//        mav.addObject("serverTime", dateFormat.format(new Date()));
+        mav.addObject("login", new Login());
         return mav;
     }
 
@@ -54,20 +55,20 @@ public class HomeController {
         String viewName = "register";
         ModelAndView mav = new ModelAndView(viewName);
         mav.addObject("login", new Login());
-//        DateFormat dateFormat = DateFormat.getDateTimeInstance();
-//        mav.addObject("serverTime", dateFormat.format(new Date()));
         return mav;
     }
 
     @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
-    public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, Login login) {
+    public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, HttpSession session, Login login) {
         ModelAndView mav = null;
         User user = userService.validateUser(login);
         if (null != user) {
             mav = new ModelAndView("welcome");
             mav.addObject("firstname", user.getFirstName());
+            session.setAttribute("user-entity", user);
         } else {
             mav = new ModelAndView("register");
+            session.removeAttribute("user-entity");
             mav.addObject("message", "Username or Password is wrong!!");
         }
         return mav;
@@ -85,6 +86,13 @@ public class HomeController {
         user.setUpdateTimestamp(new Date());
         user.setIsEnabled(true);
         this.userService.add(user);
+        return mav;
+    }
+
+    @RequestMapping(value = "/welcome")
+    public ModelAndView welcome(Principal principal) {
+        String viewName = "welcome";
+        ModelAndView mav = new ModelAndView(viewName);
         return mav;
     }
 

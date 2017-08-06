@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headinc :: head">
+    <title id="pageTitle">Register</title>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+    <div class="common-header">
+        <div class="row">
+            <a href="/newcompany" class="btn btn-primary">New Company</a>
+        </div>
+        <div class="row">
+            <div class="list-group">
+                <th:block th:each="company : ${companyList}">
+                    <a href="#" class="list-group-item active">
+                        <h4 class="list-group-item-heading" th:text="${company.companyName}">company name</h4>
+                        <p class="list-group-item-text">
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                        </p>
+                    </a>
+                </th:block>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="fragments/footer :: footer"></footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

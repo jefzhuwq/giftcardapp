@@ -7,9 +7,11 @@ import com.mediabox.giftcardapp.model.User;
  */
 public interface UserDao {
 
-    public void add(User user);
+    void add(User user);
 
-    public void edit(User user);
+    void edit(User user);
 
-    public void delete(User user);
+    void delete(User user);
+
+    User getUserByUserNameAndPassword(String userName, String password);
 }

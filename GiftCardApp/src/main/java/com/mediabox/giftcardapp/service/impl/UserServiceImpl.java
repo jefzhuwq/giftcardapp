@@ -1,5 +1,6 @@
 package com.mediabox.giftcardapp.service.impl;
 
+import com.mediabox.giftcardapp.dao.UserDao;
 import com.mediabox.giftcardapp.model.Login;
 import com.mediabox.giftcardapp.model.User;
 import com.mediabox.giftcardapp.service.UserService;
@@ -19,19 +20,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private SessionFactory session;
 
+    @Autowired
+    private UserDao userDao;
+
     @Override
     @Transactional
     public void add(User user) {
-        session.getCurrentSession().save(user);
+        this.session.getCurrentSession().save(user);
     }
 
     @Override
     @Transactional
     public User validateUser(Login login) {
-        Query query = session.getCurrentSession().createQuery("from User where userName = :username and password = :password");
-        query.setParameter("username", login.getUsername());
-        query.setParameter("password", login.getPassword());
-        List list = query.list();
-        return list.size() >0 ? (User)list.get(0) : null;
+        return userDao.getUserByUserNameAndPassword(login.getUsername(), login.getPassword());
     }
 }

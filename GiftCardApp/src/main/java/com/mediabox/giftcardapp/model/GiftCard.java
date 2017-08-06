@@ -13,7 +13,7 @@ import java.util.Date;
 @Table(name="giftcard") //catalog = "giftcarddb")
 public class GiftCard {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "giftcard_id")
     private String giftcardID;
 

@@ -1,15 +1,20 @@
 package com.mediabox.giftcardapp.dao;
 
+import com.mediabox.giftcardapp.model.GiftCard;
 import com.mediabox.giftcardapp.model.User;
+
+import java.util.List;
 
 /**
  * Created by jeffe on 7/6/2017.
  */
 public interface GiftCardDao {
 
-    public void add(User user);
+    void add(GiftCard card);
 
-    public void edit(User user);
+    void edit(GiftCard card);
 
-    public void delete(User user);
+    void delete(GiftCard card);
+
+    List<GiftCard> findGiftCardByUserId(String userID);
 }

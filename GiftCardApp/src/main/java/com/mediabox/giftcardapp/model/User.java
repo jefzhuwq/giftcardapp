@@ -2,6 +2,7 @@ package com.mediabox.giftcardapp.model;
 
 import lombok.Data;
 import lombok.Generated;
+import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name="user", catalog = "giftcarddb")
+@Scope("session")
 public class User {
     @Id
     @Column(name = "user_id")
