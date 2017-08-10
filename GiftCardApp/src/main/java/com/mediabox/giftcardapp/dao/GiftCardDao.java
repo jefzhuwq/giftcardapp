@@ -14,7 +14,9 @@ public interface GiftCardDao {
 
     void edit(GiftCard card);
 
-    void delete(GiftCard card);
+    void delete(String cardID);
 
     List<GiftCard> findGiftCardByUserId(String userID);
+
+    GiftCard getGiftCard(String cardID);
 }

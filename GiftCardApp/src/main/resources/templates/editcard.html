@@ -24,25 +24,25 @@
                         <div class="form-group row">
                             <label for="cardNumber" class="col-sm-2 col-form-label">Card Number</label>
                             <div class="col-sm-10">
-                                <input class="form-control" id="cardNumber" name="cardNumber" placeholder="Card Number">
+                                <input class="form-control" id="cardNumber" th:value="${card.cardNumber}" name="cardNumber" placeholder="Card Number">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="cardPin" class="col-sm-2 col-form-label">Card Pin</label>
                             <div class="col-sm-10">
-                                <input class="form-control" id="cardPin" name="cardPin" placeholder="Card Pin">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="remainingCredit" class="col-sm-2 col-form-label">Remaining Credit</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" id="remainingCredit" name="remainingCredit" placeholder="Remaining Credit">
+                                <input class="form-control" id="cardPin" name="cardPin" th:value="${card.cardPin}" placeholder="Card Pin">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="expirationDate" class="col-sm-2 col-form-label">Exp Date</label>
                             <div class="col-sm-10">
-                                <input class="form-control" id="expirationDate" name="expirationDate" placeholder="MM/DD/YYY" type="text"/>
+                                <input class="form-control" id="expirationDate" name="expirationDate" th:value="${card.expirationDate}" placeholder="MM/DD/YYY" type="text"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="remainingCredit" class="col-sm-2 col-form-label">Remaining Credit</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="remainingCredit" name="remainingCredit" th:value="${card.remainingCredit}" placeholder="Remaining Credit">
                             </div>
                         </div>
                         <div class="form-group row">

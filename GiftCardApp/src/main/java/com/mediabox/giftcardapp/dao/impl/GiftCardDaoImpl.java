@@ -31,8 +31,9 @@ public class GiftCardDaoImpl implements GiftCardDao {
     }
 
     @Override
-    public void delete(GiftCard card) {
-
+    public void delete(String cardID) {
+        GiftCard card = this.getGiftCard(cardID);
+        this.session.getCurrentSession().delete(card);
     }
 
     @Override
@@ -42,5 +43,11 @@ public class GiftCardDaoImpl implements GiftCardDao {
         List list = query.list();
         return list;
     }
+
+    @Override
+    public GiftCard getGiftCard(String cardID) {
+        return session.getCurrentSession().get(GiftCard.class, cardID);
+    }
+
 
 }

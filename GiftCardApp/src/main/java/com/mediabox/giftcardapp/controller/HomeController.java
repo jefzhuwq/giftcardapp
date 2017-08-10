@@ -63,7 +63,7 @@ public class HomeController {
         ModelAndView mav = null;
         User user = userService.validateUser(login);
         if (null != user) {
-            mav = new ModelAndView("welcome");
+            mav = new ModelAndView("redirect:mycard");
             mav.addObject("firstname", user.getFirstName());
             session.setAttribute("user-entity", user);
         } else {

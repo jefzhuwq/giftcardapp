@@ -12,5 +12,9 @@ public interface GiftCardService {
 
     void add(GiftCard card);
 
+    void delete(String cardID);
+
     List<GiftCard> findGiftCardByUserID(String userID);
+
+    GiftCard getGiftCard(String cardID);
 }

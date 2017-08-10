@@ -1,11 +1,13 @@
 package com.mediabox.giftcardapp.controller;
 
+import com.mediabox.giftcardapp.exceptions.NoPermissionException;
 import com.mediabox.giftcardapp.model.*;
 import com.mediabox.giftcardapp.service.CompanyService;
 import com.mediabox.giftcardapp.service.GiftCardService;
 import com.mediabox.giftcardapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -53,7 +55,47 @@ public class CardController {
             User user = (User) session.getAttribute("user-entity");
             mav.addObject("cardList", giftCardService.findGiftCardByUserID(user.getUserID()));
         } else {
-            viewName = "login";
+            viewName = "redirect:login";
+        }
+        mav.setViewName(viewName);
+        return mav;
+    }
+
+    @RequestMapping(value = "/editcard/{id}")
+    public ModelAndView editcard(Principal principal, HttpSession session, @PathVariable("id") String id) {
+        String viewName = null;
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user-entity") != null) {
+            User user = (User) session.getAttribute("user-entity");
+            GiftCard card = giftCardService.getGiftCard(id);
+            if (user.getUserID().equals(card.getUserID())) {
+                viewName = "editcard";
+                mav.addObject("card", card);
+            } else {
+                throw new NoPermissionException();
+            }
+        } else {
+            viewName = "redirect:/login";
+        }
+        mav.setViewName(viewName);
+        return mav;
+    }
+
+    @RequestMapping(value = "/deletecard/{id}")
+    public ModelAndView deletecard(Principal principal, HttpSession session, @PathVariable("id") String id) {
+        String viewName = null;
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user-entity") != null) {
+            User user = (User) session.getAttribute("user-entity");
+            GiftCard card = giftCardService.getGiftCard(id);
+            if (user.getUserID().equals(card.getUserID())) {
+                giftCardService.delete(id);
+                viewName = "redirect:/mycard";
+            } else {
+                throw new NoPermissionException();
+            }
+        } else {
+            viewName = "redirect:/login";
         }
         mav.setViewName(viewName);
         return mav;
@@ -77,7 +119,7 @@ public class CardController {
             this.giftCardService.add(card);
             viewName = "redirect:mycard";
         } else {
-            viewName = "redirect:login";
+            viewName = "redirect:/login";
         }
         mav.setViewName(viewName);
         return mav;

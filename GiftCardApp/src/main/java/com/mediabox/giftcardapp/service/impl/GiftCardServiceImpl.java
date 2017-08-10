@@ -20,7 +20,6 @@ public class GiftCardServiceImpl implements GiftCardService {
     @Autowired
     private GiftCardDao giftCardDao;
 
-
     @Override
     @Transactional
     public void add(GiftCard card) {
@@ -29,7 +28,20 @@ public class GiftCardServiceImpl implements GiftCardService {
 
     @Override
     @Transactional
+    public void delete(String cardID) {
+        giftCardDao.delete(cardID);
+    }
+
+    @Override
+    @Transactional
     public List<GiftCard> findGiftCardByUserID(String userID) {
         return giftCardDao.findGiftCardByUserId(userID);
     }
+
+    @Override
+    @Transactional
+    public GiftCard getGiftCard(String cardID) {
+        return giftCardDao.getGiftCard(cardID);
+    }
+
 }
