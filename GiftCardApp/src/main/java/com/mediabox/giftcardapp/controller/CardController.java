@@ -5,12 +5,11 @@ import com.mediabox.giftcardapp.model.*;
 import com.mediabox.giftcardapp.service.CompanyService;
 import com.mediabox.giftcardapp.service.GiftCardService;
 import com.mediabox.giftcardapp.service.UserService;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +24,7 @@ import java.util.UUID;
  * Created by jeffe on 7/5/2017.
  */
 @Controller
+@Log4j
 @SessionAttributes("user-entity")
 public class CardController {
 
@@ -71,6 +71,8 @@ public class CardController {
             if (user.getUserID().equals(card.getUserID())) {
                 viewName = "editcard";
                 mav.addObject("card", card);
+                List<Company> companyList = this.companyService.findAllCompany();
+                mav.addObject("companyList", companyList);
             } else {
                 throw new NoPermissionException();
             }
@@ -102,26 +104,35 @@ public class CardController {
     }
 
     @RequestMapping(value = "/cardProcess", method = RequestMethod.POST)
-    public ModelAndView companyProcess(HttpServletRequest request, HttpServletResponse response, HttpSession session, GiftCard card) {
+    public ModelAndView cardProcess(HttpServletRequest request, HttpServletResponse response, HttpSession session, GiftCard card) {
         String viewName = null;
         ModelAndView mav = new ModelAndView();
         if (session.getAttribute("user-entity") != null) {
             User user = (User) session.getAttribute("user-entity");
-            card.setGiftcardID(UUID.randomUUID().toString());
             card.setCardNumber(card.getCardNumber());
             card.setCardPin(card.getCardPin());
-            card.setCreateTimestamp(new Date());
             card.setCompanyID(card.getCompanyID());
             card.setUpdateTimestamp(new Date());
-            card.setUserID(user.getUserID());
             card.setIsEnabled(true);
             card.setExpirationDate(card.getExpirationDate());
+            if (card.getGiftcardID() == null) {
+                card.setGiftcardID(UUID.randomUUID().toString());
+                card.setCreateTimestamp(new Date());
+                card.setUserID(user.getUserID());
+            }
             this.giftCardService.add(card);
+
             viewName = "redirect:mycard";
         } else {
             viewName = "redirect:/login";
         }
         mav.setViewName(viewName);
         return mav;
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public void handle(Exception e) {
+        log.warn("Returning HTTP 400 Bad Request", e);
     }
 }
