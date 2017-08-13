@@ -8,6 +8,7 @@
     <div class="common-header">
         <div class="row">
             <a href="/newcard" class="btn btn-primary">New Card</a>
+            <a href="/requestcard" class="btn btn-default">Request Physical Card</a>
         </div>
         <div class="row">
             <div class="list-group">
@@ -18,7 +19,10 @@
                             <div class="caption">
                                 <h3 th:text="${card.cardNumber}">card number</h3>
                                 <p>You have <span th:text="${card.remainingCredit}">xxx</span> value remaining</p>
-                                <p><a th:href="@{/editcard/{id}(id=${card.giftcardID})}" class="btn btn-primary">Edit</a> <a th:href="@{/deletecard/{id}(id=${card.giftcardID})}" class="btn btn-default">Delete</a></p>
+                                <p>
+                                    <a th:href="@{/editcard/{id}(id=${card.giftcardID})}" class="btn btn-primary">Edit</a>
+                                    <a th:href="@{/deletecard/{id}(id=${card.giftcardID})}" class="btn btn-default">Delete</a>
+                                </p>
                             </div>
                         </div>
                     </div>

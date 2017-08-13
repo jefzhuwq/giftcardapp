@@ -103,6 +103,20 @@ public class CardController {
         return mav;
     }
 
+    @RequestMapping(value = "/requestcard")
+    public ModelAndView requestcard(Principal principal, HttpSession session) {
+        String viewName = null;
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user-entity") != null) {
+            User user = (User) session.getAttribute("user-entity");
+            viewName = "requestcard";
+        } else {
+            viewName = "redirect:/login";
+        }
+        mav.setViewName(viewName);
+        return mav;
+    }
+
     @RequestMapping(value = "/cardProcess", method = RequestMethod.POST)
     public ModelAndView cardProcess(HttpServletRequest request, HttpServletResponse response, HttpSession session, GiftCard card) {
         String viewName = null;
@@ -115,10 +129,12 @@ public class CardController {
             card.setUpdateTimestamp(new Date());
             card.setIsEnabled(true);
             card.setExpirationDate(card.getExpirationDate());
+            card.setUserID(user.getUserID());
             if (card.getGiftcardID() == null) {
                 card.setGiftcardID(UUID.randomUUID().toString());
                 card.setCreateTimestamp(new Date());
-                card.setUserID(user.getUserID());
+            } else {
+                card.setCreateTimestamp(card.getCreateTimestamp());
             }
             this.giftCardService.add(card);
 

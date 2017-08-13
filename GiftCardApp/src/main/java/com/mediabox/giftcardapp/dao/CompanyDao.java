@@ -17,4 +17,6 @@ public interface CompanyDao {
     void delete(Company company);
 
     List<Company> findAllCompany();
+
+    Company getCompany(String companyID);
 }

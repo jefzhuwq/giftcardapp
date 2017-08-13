@@ -3,6 +3,7 @@ package com.mediabox.giftcardapp.dao.impl;
 import com.mediabox.giftcardapp.dao.CompanyDao;
 import com.mediabox.giftcardapp.dao.UserDao;
 import com.mediabox.giftcardapp.model.Company;
+import com.mediabox.giftcardapp.model.GiftCard;
 import com.mediabox.giftcardapp.model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -41,5 +42,10 @@ public class CompanyDaoImpl implements CompanyDao {
         Query query = session.getCurrentSession().createQuery("from Company");
         List list = query.list();
         return list;
+    }
+
+    @Override
+    public Company getCompany(String companyID) {
+        return session.getCurrentSession().get(Company.class, companyID);
     }
 }

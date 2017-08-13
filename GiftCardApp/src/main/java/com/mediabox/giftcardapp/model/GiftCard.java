@@ -1,6 +1,7 @@
 package com.mediabox.giftcardapp.model;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -36,6 +37,7 @@ public class GiftCard {
     private Boolean isEnabled;
 
     @Column(name = "expiration_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date expirationDate;
 
     @Column(name = "create_timestamp")

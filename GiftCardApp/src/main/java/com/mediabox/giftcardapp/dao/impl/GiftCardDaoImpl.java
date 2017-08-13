@@ -22,7 +22,7 @@ public class GiftCardDaoImpl implements GiftCardDao {
 
     @Override
     public void add(GiftCard card) {
-        this.session.getCurrentSession().save(card);
+        this.session.getCurrentSession().saveOrUpdate(card);
     }
 
     @Override
