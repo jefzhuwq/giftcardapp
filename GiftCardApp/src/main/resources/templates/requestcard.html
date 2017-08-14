@@ -6,13 +6,13 @@
 <body>
     <div th:replace="fragments/header :: header"></div>
     <div class="common-header">
-        <form action="/cardProcess" method="post" modelAttribute="giftcard">
+        <form action="/cardProcess" method="post">
             <div class="form-group row">
                 <label for="companyID" class="col-sm-2 col-form-label">Company Name</label>
                 <div class="col-sm-10">
                     <select class="selectpicker" data-live-search="true" name="companyID" id="companyID">
-                        <th:block th:each="company : ${companyList}">
-                            <option th:text="${company.companyName}" th:value="${company.companyID}" th:id="${company.companyID}">company name</option>
+                        <th:block th:each="card : ${mergedCardList}">
+                            <option th:text="${card.cardNumber}" th:value="${card.companyID}" th:id="${card.companyID}">company name</option>
                         </th:block>
                     </select>
                 </div>

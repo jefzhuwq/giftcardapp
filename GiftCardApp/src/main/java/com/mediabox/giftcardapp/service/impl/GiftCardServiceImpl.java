@@ -58,12 +58,11 @@ public class GiftCardServiceImpl implements GiftCardService {
         List<GiftCard> giftCardList = this.findGiftCardByUserID(userID);
         Set<Company> result = new HashSet<>();
         for (GiftCard card : giftCardList) {
-            if (!result.contains(card.getCompanyID())) {
+            if (card.getCompanyID() != null && !result.contains(card.getCompanyID())) {
                 Company company = companyDao.getCompany(card.getCompanyID());
                 result.add(company);
             }
         }
         return result;
     }
-
 }

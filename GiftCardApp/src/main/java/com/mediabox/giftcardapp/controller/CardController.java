@@ -16,9 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by jeffe on 7/5/2017.
@@ -110,6 +108,9 @@ public class CardController {
         if (session.getAttribute("user-entity") != null) {
             User user = (User) session.getAttribute("user-entity");
             viewName = "requestcard";
+//            Set<Company> companySet = giftCardService.getAllCompanyOnUserGiftCard(user.getUserID());
+            List<GiftCard> mergedCardList = this.getMergedGiftCardList(user.getUserID());
+            mav.addObject("mergedCardList", mergedCardList);
         } else {
             viewName = "redirect:/login";
         }
@@ -144,6 +145,30 @@ public class CardController {
         }
         mav.setViewName(viewName);
         return mav;
+    }
+
+    private List<GiftCard> getMergedGiftCardList(String userID) {
+        List<GiftCard> cardList = this.giftCardService.findGiftCardByUserID(userID);
+        return this.mergeGiftCard(cardList);
+    }
+
+    private List<GiftCard> mergeGiftCard(List<GiftCard> cardList) {
+        List<GiftCard> result = new ArrayList<>();
+        for (GiftCard card : cardList) {
+            if (card.getCompanyID() != null) {
+                boolean isFound = false;
+                for (GiftCard finalCard : result) {
+                    if (finalCard.getCompanyID().equals(card.getCompanyID())) {
+                        finalCard.setRemainingCredit(finalCard.getRemainingCredit() + card.getRemainingCredit());
+                        isFound = true;
+                    }
+                }
+                if (!isFound) {
+                    result.add(card);
+                }
+            }
+        }
+        return result;
     }
 
     @ExceptionHandler
