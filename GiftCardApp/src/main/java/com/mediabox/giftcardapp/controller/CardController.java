@@ -81,6 +81,26 @@ public class CardController {
         return mav;
     }
 
+    @RequestMapping(value = "/sellcard/{id}")
+    public ModelAndView sellcard(Principal principal, HttpSession session, @PathVariable("id") String id) {
+        String viewName = null;
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user-entity") != null) {
+            User user = (User) session.getAttribute("user-entity");
+            GiftCard card = giftCardService.getGiftCard(id);
+            if (user.getUserID().equals(card.getUserID())) {
+                viewName = "sellcard";
+                mav.addObject("card", card);
+            } else {
+                throw new NoPermissionException();
+            }
+        } else {
+            viewName = "redirect:/login";
+        }
+        mav.setViewName(viewName);
+        return mav;
+    }
+
     @RequestMapping(value = "/deletecard/{id}")
     public ModelAndView deletecard(Principal principal, HttpSession session, @PathVariable("id") String id) {
         String viewName = null;
@@ -131,6 +151,37 @@ public class CardController {
             card.setIsEnabled(true);
             card.setExpirationDate(card.getExpirationDate());
             card.setUserID(user.getUserID());
+            if (card.getGiftcardID() == null) {
+                card.setGiftcardID(UUID.randomUUID().toString());
+                card.setCreateTimestamp(new Date());
+            } else {
+                card.setCreateTimestamp(card.getCreateTimestamp());
+            }
+            this.giftCardService.add(card);
+
+            viewName = "redirect:mycard";
+        } else {
+            viewName = "redirect:/login";
+        }
+        mav.setViewName(viewName);
+        return mav;
+    }
+
+    @RequestMapping(value = "/sellCardProcess", method = RequestMethod.POST)
+    public ModelAndView sellCardProcess(HttpServletRequest request, HttpServletResponse response, HttpSession session, GiftCard card) {
+        String viewName = null;
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user-entity") != null) {
+            User user = (User) session.getAttribute("user-entity");
+            card.setCardNumber(card.getCardNumber());
+            card.setCardPin(card.getCardPin());
+            card.setCompanyID(card.getCompanyID());
+            card.setUpdateTimestamp(new Date());
+            card.setIsEnabled(true);
+            card.setExpirationDate(card.getExpirationDate());
+            card.setUserID(user.getUserID());
+            card.setIsForSale(card.getIsForSale());
+            card.setSalesPrice(card.getSalesPrice());
             if (card.getGiftcardID() == null) {
                 card.setGiftcardID(UUID.randomUUID().toString());
                 card.setCreateTimestamp(new Date());

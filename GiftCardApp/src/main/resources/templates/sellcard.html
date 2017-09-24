@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headinc :: head">
+    <title id="pageTitle">Register</title>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+        <div class="common-header">
+            <div class="container">
+                <div class="row">
+                    <form action="/sellCardProcess" method="post" modelAttribute="card">
+                        <input type="hidden" th:value="${card.giftcardID}" name="giftcardID" id="giftcardID">
+                        <div class="form-group row">
+                            <label for="companyID" class="col-sm-2 col-form-label">Company Name</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="companyID" th:value="${card.companyID}" name="companyID" placeholder="Company ID" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cardNumber" class="col-sm-2 col-form-label">Card Number</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="cardNumber" th:value="${card.cardNumber}" name="cardNumber" placeholder="Card Number" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="expirationDate" class="col-sm-2 col-form-label">Exp Date</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="expirationDate" name="expirationDate" th:value="${card.expirationDate}" placeholder="YYYY-MM-DD" readonly/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="remainingCredit" class="col-sm-2 col-form-label">Remaining Credit</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="remainingCredit" name="remainingCredit" th:value="${card.remainingCredit}" placeholder="Remaining Credit" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2">Is for sale</label>
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" name="isForSale" id="isForSale" th:checked="${card.isForSale}">Is for sale
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="sellingPrice" class="col-sm-2 col-form-label">Sales Price</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="sellingPrice" name="salesPrice" placeholder="Selling Price" th:value="${card.salesPrice}" type="number">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="offset-sm-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="/mycard" class="btn btn-default">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <footer th:replace="fragments/footer :: footer"></footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>-->
+
+    <!--Datepicker-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+<script>
+    $(document).ready(function(){
+        var date_input=$('input[name="date"]'); //our date input has the name "date"
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        var options={
+            format: 'mm/dd/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+            orientation: "bottom auto",
+        };
+        date_input.datepicker(options);
+    })
+</script>
+</body>
+</html>

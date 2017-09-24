@@ -45,4 +45,10 @@ public class GiftCard {
 
     @Column(name = "update_timestamp")
     private Date updateTimestamp;
+
+    @Column(name = "is_for_sale")
+    private Boolean isForSale;
+
+    @Column(name = "sales_price")
+    private Double salesPrice;
 }
